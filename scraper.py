@@ -34,7 +34,12 @@ def login(email: str, password: str) -> requests.Session:
 
 def scrape_blog(session: requests.Session) -> list[dict]:
     base_url = "https://www.tesmanian.com/blogs/tesmanian-blog/"
-    response = session.get(base_url)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 12_3)"
+                      " AppleWebKit/537.36 (KHTML, like Gecko)"
+                      " Chrome/99.0.4844.74 Safari/537.36"
+    }
+    response = session.get(base_url, headers=headers)
     soup = BeautifulSoup(response.text, "html.parser")
     cards = soup.find_all("div", class_="blog-post-card__info")
 
